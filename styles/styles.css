@@ -1,16 +1,15 @@
 .container
 {
 	position:absolute;
-	top:50%;
+	top:40%;
 	margin-top:-50px;
 	left:50%;
 	margin-left:-150px;
-	width:300px;
 }
 
 form
 {
-	width:300px;
+	width:500px;
 	height:50px;
 	border:1px solid black;
 	border-radius:5px;
