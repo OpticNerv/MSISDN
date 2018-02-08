@@ -1,4 +1,10 @@
 <?php
+/**
+* Class used for parsing input strings and matching them agains Mobile Network Operator data 
+* loaded from provided JSON files.
+* @class	 Msisdn
+* @author    Jure Škorc <jure.skorc@gmail.com>
+*/
 class Msisdn
 {
 	private static $msisdn;
@@ -8,6 +14,10 @@ class Msisdn
 	{
 	}
 	
+	/**
+	* PHP Function loadData, load required json file with country carriers data.
+	* @name: loadData
+	**/
 	public static function loadData()
 	{
 		if(file_exists("./data/countries.json"))
@@ -29,6 +39,15 @@ class Msisdn
 		}
 	}
 	
+	/**
+	* PHP Function search, searches in list of all available country call codes, if it finds the match
+	* it also searches for Mobile Network Operator data for that country.
+	* @name: search
+	* @params: searchString, string to be usedi in search
+	* @returns: JSON object with status true on false, based on whether it found a matching country call code.
+	* It also return MNO data if match is made with its number.
+	* It can also return a partial match, when it matches the country call code but no Mobile Network Operator is found.
+	**/
 	public static function search($searchString)
 	{
 		$result = new StdClass();
@@ -65,52 +84,5 @@ class Msisdn
 			
 		return json_encode($result);	
 	}
-	
-	/*function parseTxtToJSON()
-	{
-
-		$countries = json_decode(file_get_contents('data/countries.json'));
-		foreach($countries as $country)
-		{
-			$handle2 = null;
-			if(strpos($country->country_code,"-")!==false && file_exists("data/carriers/".substr($country->country_code,0,strpos($country->country_code,"-")).".txt"))
-				fopen("data/carriers/".substr($country->country_code,0,strpos($country->country_code,"-")).".txt","r");
-			else if(strpos($country->country_code,"-")===false && file_exists("data/carriers/".$country->country_code.".txt"))
-				$handle2 = fopen("data/carriers/".$country->country_code.".txt","r");
-			
-			if(isset($handle2))
-			{
-				$carriers_list = array();
-				while (($line = fgets($handle2)) !== false) 
-				{
-					if(strpos($line,"#")===false && strpos($line,"|")!==false)
-					{
-						$tmp_output = explode("|",$line);
-						if(isset($tmp_output) && is_array($tmp_output) && count($tmp_output) == 2)
-						{
-							$obj = new StdClass();
-							$obj->call_number = $tmp_output[0];
-							$tmp_output[1] = rtrim($tmp_output[1], " ");
-							$tmp_output[1] = rtrim($tmp_output[1], "\r\n");
-							$obj->mno = $tmp_output[1];
-							array_push($carriers_list,$obj);
-						}
-					}
-
-				}
-				fclose($handle2);
-				$country->carriers = $carriers_list;
-			}
-			else
-				$country->carriers = array();
-		}
-		
-		$fp = fopen('carriers.json', 'w');
-		fwrite($fp, json_encode($countries));
-		fclose($fp);
-		echo "done";
-	}
-	}*/
 }
-
 ?>

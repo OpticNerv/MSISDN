@@ -38,14 +38,17 @@ $(document ).ready(function()
 						result = JSON.parse(result);
 						if(result.success)
 						{
-							$(".result").text("CC: "+result.country_code+" ISO31662: "+result.iso31662+" CN: "+result.country_name+" CCN: "+result.carrier_call_number+" MNO: "+result.carrier_mno+" SN: "+result.subscriber_number);
+							if(typeof result.carrier_call_number !== "undefined" && result.carrier_call_number.length>0)
+								$(".result").text("CC: "+result.country_code+" | ISO31662: "+result.iso31662+" | CN: "+result.country_name+" | CCN: "+result.carrier_call_number+" | MNO: "+result.carrier_mno+" | SN: "+result.subscriber_number);
+							else
+								$(".result").text("CC: "+result.country_code+" | ISO31662: "+result.iso31662+" | CN: "+result.country_name+" | MNO: not found");
 						}
 						else
-							$(".result").text("No match found");
+							$(".result").text("No match found!");
 
 						$(".result").css("display","block");						
 					}
-					catch(JSONError) { }
+					catch(JSONError) { console.log(JSONError); }
 				},
 				error: function(data) 
 				{
