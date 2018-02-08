@@ -1,0 +1,77 @@
+<html>
+<head>
+<title>&#x1F50D;MSISDN</title>
+  <meta charset="UTF-8">
+  <meta name="description" content="Testna naloga iz parsanja MSISDN. :)">
+  <meta name="keywords" content="HTML,CSS,PHP,MSISDN,JavaScript">
+  <meta name="author" content="Jure Škorc">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="styles/styles.css">
+  <script type="text/javascript" src="js/jquery-3.3.1.min.js"></script>
+</head>
+
+<script type="text/javascript">
+function hideAllLabels()
+{
+	$(".errorLabel").css("display","none");
+	$(".result").css("display","none");
+}
+
+$(document ).ready(function() 
+{
+	$("form").submit(function(e)
+	{
+        e.preventDefault();
+		$("errorLabel").css("display","none");
+		var searchString = $(this).find("input[type=text]").val();
+		var reg = new RegExp('[0-9]');
+		
+		if(typeof searchString!=="undefined" && searchString!=null && searchString.length>0 && reg.test(searchString))
+		{
+			$.ajax(
+			{	
+				url: "ajax.php?search="+searchString, 
+				success: function(result)
+				{
+					try
+					{
+						result = JSON.parse(result);
+						if(result.success)
+						{
+							$(".result").text("CC: "+result.country_code+" ISO31662: "+result.iso31662+" CN: "+result.country_name+" CCN: "+result.carrier_call_number+" MNO: "+result.carrier_mno+" SN: "+result.subscriber_number);
+						}
+						else
+							$(".result").text("No match found");
+
+						$(".result").css("display","block");						
+					}
+					catch(JSONError) { }
+				},
+				error: function(data) 
+				{
+					$(".errorLabel").text(data.responseText);
+					$(".errorLabel").css("display","block");
+				}
+			});
+		
+		}
+		else
+		{
+			$(".errorLabel").text("Invalid number format!");
+			$(".errorLabel").css("display","block");
+		}
+    });
+});
+</script>
+
+<body>
+	<center class="container">
+		<form>
+			<input type="text" placeholder="input MSISDN..." onfocus="hideAllLabels();" /><input type="submit" value="&#x1F50D;" />
+		</form>
+		
+		<p class="errorLabel">Invalid number format!</p>
+			<p class="result"></p>
+	</center>
+</body>
+</html>
