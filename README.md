@@ -13,3 +13,7 @@ Installation:
 Sources of data i used are: 
 * https://countrycode.org/
 * https://github.com/googlei18n/libphonenumber/tree/master/resources/carrier/en
+
+Swagger link: https://app.swaggerhub.com/apis/opticnerv6/MSISDN/1.0.0
+
+You can see MSISDN parser in action here: https://www.onemustfall.info/

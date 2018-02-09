@@ -1,4 +1,9 @@
 ﻿<?php
+/**
+  @author    Jure Škorc <jure|skorc|gmail|com>
+ * 
+ */ 
+
 use PHPUnit\Framework\TestCase;
 require_once ('./class/Msisdn.php');
 
@@ -6,18 +11,13 @@ final class MsisdnTest  extends TestCase
 {
 	private $msisdn;
 	
+	/*Sets up the instance of the Msisdn class.*/
 	protected function setUp()
     {
         $this->msisdn = new Msisdn();
     }
-	
-	
-	public function search_results($searchString, $expected_result)
-    {    
-    	$msisdn = new Msisdn();
-        $this->assertEquals($expected_result, $msisdn->validate($searchString));
-    }
     
+	/*Tests for invalid number format, return false*/
 	public function testInvalidNumberFormat()
 	{
     	$obj = new StdClass();
@@ -27,6 +27,7 @@ final class MsisdnTest  extends TestCase
         $this->assertEquals(json_encode($obj), $result);
     }
 	
+	/*Tests for valid response, which is an object with both country and MNO data.*/
 	public function testValidResponse()
 	{
 		$obj = new StdClass();
@@ -42,6 +43,7 @@ final class MsisdnTest  extends TestCase
         $this->assertEquals(json_encode($obj), $result);
 	}
 	
+	/*Tests for a partial, country only match. MNO is not found.*/
 	public function testCarrierNotFound()
     {
 		$obj = new StdClass();

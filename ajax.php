@@ -1,6 +1,6 @@
 <?php 
 /**
-* @author    Jure Škorc <jure.skorc@gmail.com>
+* @author    Jure Škorc <jure|skorc|gmail|com>
 * Intercepts any GET requests with parameter search. It checks phone number validity
 * and passes it on to Msisdn class for parsing, or triggers error function.
 * @returns: JSON object with MNO data, also sets 200 and JSON header.
