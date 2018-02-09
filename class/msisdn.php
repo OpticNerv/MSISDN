@@ -3,7 +3,7 @@
 * Class used for parsing input strings and matching them agains Mobile Network Operator data 
 * loaded from provided JSON files.
 * @class	 Msisdn
-* @author    Jure Škorc <jure.skorc@gmail.com>
+* @author    Jure Škorc <jure|skorc|gmail|com>
 */
 class Msisdn
 {
