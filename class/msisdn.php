@@ -54,7 +54,7 @@ class Msisdn
 		$result->success = false;
 		self::loadData();
 
-		if(strlen($searchString)>0 && isset(self::$countries))
+		if(strlen($searchString)>0 && isset(self::$countries) && preg_match('/^[0-9]+$/',$searchString))
 		{
 			$result->success = true;
 			foreach(self::$countries as $country)
