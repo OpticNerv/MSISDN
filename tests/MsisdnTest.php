@@ -1,8 +1,5 @@
-﻿<?php
-/**
-  @author    Jure Škorc <jure|skorc|gmail|com>
- * 
- */ 
+<?php
+/*@author    Jure Škorc <jure|skorc|gmail|com>*/
 
 use PHPUnit\Framework\TestCase;
 require_once ('./class/Msisdn.php');
